@@ -7,6 +7,7 @@
 
 #import "MPC_CloudKitManager.h"
 #import "Destination.h"
+#import "MPC_CKDeleteRecordOperation.h"
 #import "MPC_CKSaveRecordOperation.h"
 #import "MPC_CKQueryOperation.h"
 #import "MPC_CKAvailabilityCheckOperation.h"
@@ -71,18 +72,41 @@ NSString * const kFirstDownloadOfDestinationsComplete = @"kFirstDownloadOfDestin
                                     destinationType:DLTypeMyDestinations];
 }
 
-+ (void)deleteMyDestination:(Destination *)destination
+- (void)deleteMyDestination:(Destination *)destination
 {
+    NSMutableArray *opsArray = [NSMutableArray new];
+    
     CKRecordID *ID = [[CKRecordID alloc]initWithRecordName:destination.UUID];
-     [[[CKContainer defaultContainer]privateCloudDatabase] deleteRecordWithID:ID completionHandler:^(CKRecordID *deletedActivityID, NSError *deletionError){
-         
-         if (deletionError) {
-             NSLog(@"Error deleting record - %@", deletionError);
-         } else {
-             NSLog(@"RECORD DELETED");
+    MPC_CKDeleteRecordOperation *op1Delete = [[MPC_CKDeleteRecordOperation alloc]initWithRecordID:ID
+                                                                              usesPrivateDatabase:YES];
+    
+    [opsArray addObject:op1Delete];
+    
+    //1. Show Network spinner
+    [self _netWorkActivityIndicatorVisible:YES];
+    
+    
+    //3. All CK operations must first validate if CK is available.
+    //Add the check for cloudkit op as array[0]
+    [opsArray insertObject:[MPC_CKAvailabilityCheckOperation MPC_Operation] atIndex:0];
+    
+    //4. Add a clean up block to handle results
+    NSBlockOperation *terminal = [self _deletionTerminalBlockWithDeletionOperation:op1Delete];
+    
+    [opsArray addObject:terminal];
+    NSLog(@"Ops array now has %li ops", (long)opsArray.count);
 
-         }
-     }];
+    
+    //5. Create an NSOperation Queue
+    NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+    
+    //6. Call to NSOperationQueue (MPC_NSOperation) category to:
+    //a. Add mini adapter blocks in cases where 2 MPC_NSOperations to not use adapter blocks (to pass forward variables)
+    //b. Add dependencies
+    //c. Add ops to the queue
+    [queue addDependenciesAndDefaultAdapterBlocksBetweenMPC_NSOperationsArray:[opsArray copy]];
+    
+    //7. Operation chain is now in progress. Go make some popcorn and chill.
     
     
     
@@ -199,6 +223,21 @@ NSString * const kFirstDownloadOfDestinationsComplete = @"kFirstDownloadOfDestin
         } 
         
          [weakSelf _netWorkActivityIndicatorVisible:NO];
+    }];
+}
+
+- (NSBlockOperation *)_deletionTerminalBlockWithDeletionOperation:(MPC_CKDeleteRecordOperation* )op
+{
+     __weak MPC_CloudKitManager *weakSelf = self;
+    return [NSBlockOperation blockOperationWithBlock:^{
+       
+        if (op.deletedCKRecordID) {
+            NSLog(@"Deletion was successful!");
+        } else {
+            NSLog(@"Deletion did fail with error");
+        }
+        
+     [weakSelf _netWorkActivityIndicatorVisible:NO];
     }];
 }
 

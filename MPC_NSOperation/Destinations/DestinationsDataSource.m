@@ -14,6 +14,7 @@
 @interface DestinationsDataSource()
 @property (assign, nonatomic) BOOL editable;
 @property (strong, nonatomic) NSMutableArray *dataArray;
+@property (strong, nonatomic) MPC_CloudKitManager *manager;
 @end
 
 @implementation DestinationsDataSource
@@ -24,6 +25,7 @@
     if ((self = [super init])) {
         _dataArray = [dataArray mutableCopy];
         _editable = editable;
+        _manager = [[MPC_CloudKitManager alloc]init];
     }
     return self;
 }
@@ -60,7 +62,7 @@
     if (self.editable && editingStyle == UITableViewCellEditingStyleDelete) {
         
         Destination *destination = [self.dataArray objectAtIndex:indexPath.row];
-        [MPC_CloudKitManager deleteMyDestination:destination];
+        [self.manager deleteMyDestination:destination];
         
         [self.dataArray removeObjectAtIndex:indexPath.row];
         

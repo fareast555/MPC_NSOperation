@@ -32,7 +32,7 @@
     if (![super initializeExecution])
         return;
     
-    //2. Cancel if CKRecord or RecordType has not been sent
+    //2. Cancel if CKRecordID
     if (!self.record) {
         [self exposeErrorWithMessage:@"CKRecord not available at time of save. See error messages for more."];
         [self cancel];
@@ -56,14 +56,12 @@
         } else {
             self.savedCKRecord = [record copy];
             NSLog(@"In save op, says saved record is %@", self.savedCKRecord ? @"Available." : @"NOT available.");
-
         }
         
         //7. Call to super to mark operation as finished
         [super completeOperation];
         
     }];
-    
 }
 
 - (void)exposeError:(NSError *)error
@@ -73,10 +71,6 @@
 
 - (void)exposeErrorWithMessage:(NSString *)message //Implemented by super
 {
-    
 }
-
-
-
 
 @end

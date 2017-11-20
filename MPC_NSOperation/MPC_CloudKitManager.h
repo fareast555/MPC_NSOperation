@@ -31,7 +31,7 @@ extern NSString * const kFirstDownloadOfDestinationsComplete;
 
 - (void)saveMyDestination:(Destination *)destination;
 
-+ (void)deleteMyDestination:(Destination *)destination;
+- (void)deleteMyDestination:(Destination *)destination;
 
 - (void)initializeDestinations;
 

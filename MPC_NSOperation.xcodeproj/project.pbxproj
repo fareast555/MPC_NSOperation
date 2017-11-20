@@ -20,6 +20,7 @@
 		27AABA9E1FC31D5D00BC79BA /* DestinationsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AABA9C1FC31D5D00BC79BA /* DestinationsDataSource.m */; };
 		27AABAA31FC333F400BC79BA /* AllDestinationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AABAA11FC333F400BC79BA /* AllDestinationsViewController.m */; };
 		27AABAA41FC333F400BC79BA /* AllDestinationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27AABAA21FC333F400BC79BA /* AllDestinationsViewController.xib */; };
+		27AABAA71FC394ED00BC79BA /* MPC_CKDeleteRecordOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AABAA61FC394ED00BC79BA /* MPC_CKDeleteRecordOperation.m */; };
 		27EBDFFE1FC03D67006D6873 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EBDFFD1FC03D67006D6873 /* AppDelegate.m */; };
 		27EBE0041FC03D67006D6873 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27EBE0021FC03D67006D6873 /* Main.storyboard */; };
 		27EBE0061FC03D67006D6873 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EBE0051FC03D67006D6873 /* Assets.xcassets */; };
@@ -63,6 +64,8 @@
 		27AABAA01FC333F400BC79BA /* AllDestinationsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllDestinationsViewController.h; sourceTree = "<group>"; };
 		27AABAA11FC333F400BC79BA /* AllDestinationsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllDestinationsViewController.m; sourceTree = "<group>"; };
 		27AABAA21FC333F400BC79BA /* AllDestinationsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllDestinationsViewController.xib; sourceTree = "<group>"; };
+		27AABAA51FC394ED00BC79BA /* MPC_CKDeleteRecordOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPC_CKDeleteRecordOperation.h; sourceTree = "<group>"; };
+		27AABAA61FC394ED00BC79BA /* MPC_CKDeleteRecordOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPC_CKDeleteRecordOperation.m; sourceTree = "<group>"; };
 		27EBDFF91FC03D67006D6873 /* MPC_NSOperation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPC_NSOperation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27EBDFFC1FC03D67006D6873 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		27EBDFFD1FC03D67006D6873 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 				27EBE0251FC04206006D6873 /* MPC_CKQueryOperation.m */,
 				27EBE01E1FC04206006D6873 /* MPC_CKSaveRecordOperation.h */,
 				27EBE0211FC04206006D6873 /* MPC_CKSaveRecordOperation.m */,
+				27AABAA51FC394ED00BC79BA /* MPC_CKDeleteRecordOperation.h */,
+				27AABAA61FC394ED00BC79BA /* MPC_CKDeleteRecordOperation.m */,
 				27EBE0241FC04206006D6873 /* MPC_NSOperation.h */,
 				27EBE0261FC04207006D6873 /* MPC_NSOperation.m */,
 				27EBE0321FC04292006D6873 /* NSOperationQueue+MPC_NSOperationQueue.h */,
@@ -338,6 +343,7 @@
 				272A92261FC2BC5200D0B12F /* PlaceHolderView.m in Sources */,
 				27EBE01D1FC0400E006D6873 /* Destination.m in Sources */,
 				279F89FF1FC0DCC100373451 /* MyDestinationsViewController.m in Sources */,
+				27AABAA71FC394ED00BC79BA /* MPC_CKDeleteRecordOperation.m in Sources */,
 				27EBDFFE1FC03D67006D6873 /* AppDelegate.m in Sources */,
 				27EBE0331FC04292006D6873 /* NSOperationQueue+MPC_NSOperationQueue.m in Sources */,
 				27EBE02D1FC04207006D6873 /* MPC_CKQueryOperation.m in Sources */,
