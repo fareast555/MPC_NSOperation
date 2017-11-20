@@ -8,7 +8,6 @@
 
 #import "MyDestinationsViewController.h"
 #import "MPC_CloudKitManager.h"
-#import "DestinationsViewController.h"
 #import "AllDestinationsViewController.h"
 #import "DestinationsDataSource.h"
 #import "DestinationCell.h"
@@ -184,13 +183,12 @@
 
     UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:dvc];
 
-   // dispatch_async(dispatch_get_main_queue(),^{
         [self presentViewController:nc
                            animated:YES
                          completion:nil];
-  //  });
   
 }
+
 
 #pragma mark - Info copy
 - (NSString *)_info

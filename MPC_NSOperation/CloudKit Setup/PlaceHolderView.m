@@ -75,6 +75,11 @@
 
 - (IBAction)saveTestDataToiCloud:(id)sender
 {
+    [self _presentConfirmationAlert];
+}
+
+- (void)_initializeCloudKit {
+    
     [self _configureInitializingInProgress];
     MPC_CloudKitManager *manager = [[MPC_CloudKitManager alloc]init];
     manager.delegate = self;
@@ -121,6 +126,33 @@
         [self.spinner startAnimating];
     else
         [self.spinner stopAnimating];
+}
+
+#pragma mark - Alert
+- (void)_presentConfirmationAlert
+{
+    __weak UIButton *weakButton = self.attemptCloudKitButton;
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Is your CloudKit Container set up?"
+                                                                   message:@"If not, go to the ReadMe.ME file or the 'Show me tab' to learn how. Otherwise, let's initialize that container!"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction *action)
+    {
+        [weakButton setEnabled:YES];
+    }];
+    UIAlertAction *proceed = [UIAlertAction actionWithTitle:@"Let's go!"
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *action)
+    {
+        [self _initializeCloudKit];
+    }];
+    
+    [alert addAction:proceed];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (NSString *)_info

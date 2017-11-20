@@ -13,9 +13,13 @@
 #import "Destination.h"
 
 @interface AllDestinationsViewController ()<UITableViewDelegate>
+
+//IB Outlets
 @property (weak, nonatomic) IBOutlet UIButton *downloadButton;
 @property (weak, nonatomic) IBOutlet UITextView *infoView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+//Global properties
 @property (strong, nonatomic) MPC_CloudKitManager *manager;
 @property (strong, nonatomic) DestinationsDataSource *dataSource;
 @property (strong, nonatomic) NSArray *destinations;
@@ -25,29 +29,18 @@
 @implementation AllDestinationsViewController
 
 - (void)viewDidLoad {
-    NSLog(@"%s called", __FUNCTION__);
+
     [super viewDidLoad];
     self.defaults = [NSUserDefaults standardUserDefaults];
     
     [self _configureDataObjects];
     [self _configureUI];
-    
+    [self _configureNavigationBar];
     [self _configureTableView];
     [self _tableViewShouldHide];
     [self _registerNibs];
     [self _configureKVO];
     
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.title = @"Destinations";
-    [self.navigationController.navigationBar setBarTintColor:[self _lightBlue]];
-    NSDictionary *titleAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-    [self.navigationController.navigationBar setTitleTextAttributes:titleAttributes];
-    
-   
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -69,25 +62,54 @@
 
 - (void)_configureDataObjects
 {
+    //1. Create an array to hold local destination objects
     self.destinations = [NSArray new];
+    
+    //2. Create an instance of the CloudKit manager
     self.manager = [[MPC_CloudKitManager alloc]init];
+    
+    //3. Create an instance of the dedicated data source
     self.dataSource = [[DestinationsDataSource alloc]initWithDataArray:self.destinations
                                                               editable:NO];
+    //4. Point the table view to this data source
+    self.tableView.dataSource = self.dataSource;
 }
 
 - (void)_configureUI
 {
+    //1. Is this the user's first run? Recover from defaults
     BOOL firsDownloadComplete = [self.defaults boolForKey:kFirstDownloadOfDestinationsComplete];
   
+    //2. Set the information text
     self.infoView.text = [self _infoViewTextForFirstRun:firsDownloadComplete];
+    
+    //3. Hide the configure CloudKit start button if not the first app run
     self.downloadButton.hidden = firsDownloadComplete;
+    
 }
 
 - (void)_configureTableView
 {
-    self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
+- (void)_configureNavigationBar
+{
+    //1. Set title
+    self.title = @"Destinations";
+    
+    //2. Set tint colours
+    [self.navigationController.navigationBar setBarTintColor:[self _lightBlue]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    
+    //3. Set title color
+    NSDictionary *titleAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [self.navigationController.navigationBar setTitleTextAttributes:titleAttributes];
+    
+    //4. Set 'Done' button
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(_dismissView:)];
+    [self.navigationItem setRightBarButtonItem:cancel];
 }
 
 - (void)_tableViewShouldHide
@@ -107,7 +129,7 @@
     self.tableView.frame = self.view.window.bounds;
 }
 
-- (IBAction)dismissView:(id)sender
+- (void)_dismissView:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -134,28 +156,39 @@
     if ([keyPath isEqualToString:@"destinations"] &&
         [object isKindOfClass:[MPC_CloudKitManager class]]) {
         
-        //Recover array
+        //1. Recover array
         self.destinations = [change objectForKey:@"new"];
+        
+        //2. Set the default that user has done at least one download
         [self _updateUserDefaults];
+        
+        //3. Forward latest objects to dedicated dataSource object
         [self _updateDataSourceWithDestinations:[self.destinations copy]];
+        
+        //4. Check if table view should hide (due to now destinations)
         [self _tableViewShouldHide];
+        
+        //5. Rock and roll!
         [self _reload];
     }
 }
 
 - (void)_updateDataSourceWithDestinations:(NSArray *)destinations
 {
+    //Forward latest objects to dedicated dataSource object
     self.dataSource.destinations = destinations;
 }
 
 - (void)_updateUserDefaults
 {
+    //Set the default that user has done at least one download
     [self.defaults setBool:YES forKey:kFirstDownloadOfDestinationsComplete];
     [self.defaults synchronize];
 }
 
 - (void)_reload
 {
+    //Grab the main thread before reloading
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -163,16 +196,23 @@
 
 - (IBAction)downloadDestinations:(id)sender
 {
+    //1. If received from the once-only button click, disable the button
     self.downloadButton.enabled = NO;
+    
+    //2. Call to begin download process
     [self.manager downloadDestinationsType:DLTypeAllDestinations];
 }
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //1. Deselect the cell that was tapped
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    //2. Get a reference to the destination tapped via the cell tapped at the indexPath
     Destination *destination = ((DestinationCell *)[tableView cellForRowAtIndexPath:indexPath]).destination;
+    
+    //3. Call to save the destination in background
     [self.manager saveMyDestination:destination];
 }
 
