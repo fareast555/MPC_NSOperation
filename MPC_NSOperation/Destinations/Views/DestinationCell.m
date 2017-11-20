@@ -12,10 +12,7 @@
 @interface DestinationCell()
 @property (weak, nonatomic) IBOutlet UIImageView *destinationImageView;
 @property (weak, nonatomic) IBOutlet UILabel *destinationName;
-
-
 @end
-
 
 @implementation DestinationCell
 
@@ -29,22 +26,9 @@
     return @"DestinationCellReuseID";
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
-
 - (void)setDestination:(Destination *)destination
 {
     _destination = destination;
-    
     [self _configureWithDestination:self.destination];
 }
 
@@ -52,7 +36,6 @@
 {
     self.destinationImageView.image = destination.destinationImage;
     self.destinationName.text = destination.destinationName;
-  //  [self.contentView bringSubviewToFront:self.destinationName];
 }
 
 

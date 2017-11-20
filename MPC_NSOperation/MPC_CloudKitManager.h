@@ -7,12 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+@class MPC_CloudKitManager;
 
 typedef NS_ENUM(NSInteger, DLType) {
     DLTypeAllDestinations = 0,
     DLTypeMyDestinations,
 };
 
+@protocol MPC_CloudKitManagerDelegate
+- (void)databaseInitializationDidSucceeedInMPC_CloudKitManager:(MPC_CloudKitManager *)manager;
+- (void)databaseInitializationDidFailWithError:(NSError *)error
+                         inMPC_CloudKitManager:(MPC_CloudKitManager *)manager;
+@end
+
+extern NSString * const kDatabaseInitialized;
+extern NSString * const kFirstDownloadOfDestinationsComplete;
 
 @class Destination;
 
@@ -27,7 +36,7 @@ typedef NS_ENUM(NSInteger, DLType) {
 - (void)initializeDestinations;
 
 @property (strong, nonatomic) NSArray <Destination *>* destinations;
-
 @property (strong, nonatomic) NSArray <Destination *>* MyDestinations;
+@property (weak, nonatomic) id<MPC_CloudKitManagerDelegate> delegate;
 
 @end

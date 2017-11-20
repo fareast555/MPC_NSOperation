@@ -11,98 +11,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Destinations-->
-        <scene sceneID="6nC-jN-aCW">
-            <objects>
-                <viewController id="IAn-wx-kta" customClass="DestinationsViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ptu-zK-9Hp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xld-d2-HWG">
-                                <rect key="frame" x="84" y="581" width="207" height="36"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Download Destinations">
-                                            <attributes>
-                                                <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <font key="NSFont" size="20" name="AbadiMT-CondensedLight"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                                <connections>
-                                    <action selector="downloadDestinations:" destination="GOo-X4-UU5" eventType="touchUpInside" id="gAS-KN-3SZ"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="MPC_NSOperation" translatesAutoresizingMaskIntoConstraints="NO" id="bCb-Ye-iCx">
-                                <rect key="frame" x="20" y="94" width="335" height="437"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2XU-N1-z17">
-                                <rect key="frame" x="0.0" y="61" width="375" height="606"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="jrD-W5-XAc" firstAttribute="trailing" secondItem="2XU-N1-z17" secondAttribute="trailing" id="NP0-ch-o6X"/>
-                            <constraint firstItem="bCb-Ye-iCx" firstAttribute="leading" secondItem="jrD-W5-XAc" secondAttribute="leading" constant="20" id="OHG-fe-nLp"/>
-                            <constraint firstItem="2XU-N1-z17" firstAttribute="leading" secondItem="jrD-W5-XAc" secondAttribute="leading" id="OYy-Wm-v6q"/>
-                            <constraint firstItem="jrD-W5-XAc" firstAttribute="bottom" secondItem="Xld-d2-HWG" secondAttribute="bottom" constant="50" id="RtF-jo-dQn"/>
-                            <constraint firstItem="bCb-Ye-iCx" firstAttribute="top" secondItem="jrD-W5-XAc" secondAttribute="top" constant="30" id="VQF-Iv-bFb"/>
-                            <constraint firstItem="Xld-d2-HWG" firstAttribute="top" secondItem="bCb-Ye-iCx" secondAttribute="bottom" priority="999" constant="50" id="Vnn-lP-goS"/>
-                            <constraint firstItem="Xld-d2-HWG" firstAttribute="centerX" secondItem="Ptu-zK-9Hp" secondAttribute="centerX" id="YBo-rf-IsR"/>
-                            <constraint firstItem="2XU-N1-z17" firstAttribute="top" secondItem="jrD-W5-XAc" secondAttribute="top" multiplier="0.95" id="aI1-nR-beC"/>
-                            <constraint firstItem="jrD-W5-XAc" firstAttribute="bottom" secondItem="2XU-N1-z17" secondAttribute="bottom" id="w10-gC-4fa"/>
-                            <constraint firstItem="bCb-Ye-iCx" firstAttribute="trailing" secondItem="jrD-W5-XAc" secondAttribute="trailing" constant="-20" id="zts-fN-HzJ"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="jrD-W5-XAc"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Destinations" id="GEC-u3-6PO">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="9ed-o5-rcl">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="dismissView:" destination="IAn-wx-kta" id="ovq-Gq-eA1"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="downloadButton" destination="Xld-d2-HWG" id="WRz-CT-K2n"/>
-                        <outlet property="infoView" destination="bCb-Ye-iCx" id="rgU-ba-Mmd"/>
-                        <outlet property="tableView" destination="2XU-N1-z17" id="1Rm-KK-OKu"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GOo-X4-UU5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1662" y="-789"/>
-        </scene>
-        <!--All Destinations-->
-        <scene sceneID="bAN-UW-bJg">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c7g-hX-344" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Destinations" id="6H1-yq-eh7"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dcb-Mn-zLH">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.2502441406" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="IAn-wx-kta" kind="relationship" relationship="rootViewController" id="GFk-nb-ymm"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1ly-fS-1rC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="734" y="-789"/>
-        </scene>
         <!--My Destinations-->
         <scene sceneID="77r-dB-Z3O">
             <objects>
@@ -121,6 +29,24 @@
                                 <rect key="frame" x="0.0" y="61" width="375" height="606"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BL4-OE-ZzM" userLabel="Swipe Right View">
+                                <rect key="frame" x="97" y="114" width="180" height="70"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe right to delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9g1-2m-JcK">
+                                        <rect key="frame" x="10.5" y="24" width="158" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="HrT-uL-f1w"/>
+                                    <constraint firstItem="9g1-2m-JcK" firstAttribute="centerY" secondItem="BL4-OE-ZzM" secondAttribute="centerY" id="dkW-5F-1BX"/>
+                                    <constraint firstAttribute="width" constant="180" id="lDE-XX-Iqk"/>
+                                    <constraint firstItem="9g1-2m-JcK" firstAttribute="centerX" secondItem="BL4-OE-ZzM" secondAttribute="centerX" id="rhF-QW-uwd"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -128,7 +54,9 @@
                             <constraint firstItem="seW-kc-S4y" firstAttribute="centerY" secondItem="V2O-7Y-4OF" secondAttribute="centerY" multiplier="0.8" id="29W-o0-L4N"/>
                             <constraint firstItem="txy-NR-9zC" firstAttribute="bottom" secondItem="K4t-WA-ooj" secondAttribute="bottom" id="IzV-MT-1lb"/>
                             <constraint firstItem="K4t-WA-ooj" firstAttribute="top" secondItem="txy-NR-9zC" secondAttribute="top" multiplier="0.95" id="aQP-Rw-e8B"/>
+                            <constraint firstItem="BL4-OE-ZzM" firstAttribute="centerX" secondItem="V2O-7Y-4OF" secondAttribute="centerX" id="daa-Bd-Oty"/>
                             <constraint firstItem="seW-kc-S4y" firstAttribute="centerX" secondItem="V2O-7Y-4OF" secondAttribute="centerX" id="h7c-gl-RNC"/>
+                            <constraint firstItem="BL4-OE-ZzM" firstAttribute="top" secondItem="txy-NR-9zC" secondAttribute="top" constant="50" id="lJa-VS-RoN"/>
                             <constraint firstItem="seW-kc-S4y" firstAttribute="leading" secondItem="txy-NR-9zC" secondAttribute="leading" constant="20" id="tfr-hU-SYx"/>
                             <constraint firstItem="K4t-WA-ooj" firstAttribute="leading" secondItem="txy-NR-9zC" secondAttribute="leading" id="vD6-gR-BIW"/>
                             <constraint firstItem="txy-NR-9zC" firstAttribute="trailing" secondItem="seW-kc-S4y" secondAttribute="trailing" constant="20" id="xxM-6w-Yz3"/>
@@ -139,12 +67,13 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ZMr-Ow-X0g">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="c7g-hX-344" kind="presentation" id="JFE-Ru-eVQ"/>
+                                <action selector="presentAllDestinationsView:" destination="7xy-OQ-uzp" id="D4Z-f5-McT"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="placeholder" destination="seW-kc-S4y" id="D8U-ZY-ilx"/>
+                        <outlet property="swipeRightView" destination="BL4-OE-ZzM" id="GbZ-yj-Tyv"/>
                         <outlet property="tableView" destination="K4t-WA-ooj" id="DNy-9f-aye"/>
                     </connections>
                 </viewController>

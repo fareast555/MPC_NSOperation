@@ -19,28 +19,56 @@
 @property (strong, nonatomic) MPC_CloudKitManager *manager;
 @property (strong, nonatomic) DestinationsDataSource *dataSource;
 @property (strong, nonatomic) NSArray *destinations;
+@property (strong, nonatomic) NSUserDefaults *defaults;
 
 @end
 
 @implementation DestinationsViewController
 
 - (void)viewDidLoad {
+    NSLog(@"%s called", __FUNCTION__);
     [super viewDidLoad];
-    self.destinations = [NSArray new];
-    self.manager = [[MPC_CloudKitManager alloc]init];
-    self.dataSource = [[DestinationsDataSource alloc]initWithDataArray:self.destinations
-                                                              editable:NO];
-    
+    self.defaults = [NSUserDefaults standardUserDefaults];
+
+    [self _configureDataObjects];
+    [self _configureUI];
+
     [self _configureTableView];
     [self _tableViewShouldHide];
     [self _registerNibs];
     [self _configureKVO];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    //If this is not the first run, call for data
+    if ([self.defaults boolForKey:kFirstDownloadOfDestinationsComplete]) {
+        [self downloadDestinations:nil];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self _removeKVOObserving];
+}
+
+- (void)_configureDataObjects
+{
+    self.destinations = [NSArray new];
+    self.manager = [[MPC_CloudKitManager alloc]init];
+    self.dataSource = [[DestinationsDataSource alloc]initWithDataArray:self.destinations
+                                                              editable:NO];
+}
+
+- (void)_configureUI
+{
+    BOOL firsDownloadComplete = [self.defaults boolForKey:kFirstDownloadOfDestinationsComplete];
+    NSLog(@" First run shows as %@  ", firsDownloadComplete ? @"YES": @"NO");
+    self.infoView.text = [self _infoViewTextForFirstRun:firsDownloadComplete];
+    self.downloadButton.hidden = firsDownloadComplete;
 }
 
 - (void)_configureTableView
@@ -65,7 +93,6 @@
 - (void)viewWillLayoutSubviews
 {
     self.tableView.frame = self.view.window.bounds;
-    self.infoView.text = [self _info];
 }
 
 - (IBAction)dismissView:(id)sender
@@ -97,6 +124,7 @@
         
         //Recover array
         self.destinations = [change objectForKey:@"new"];
+        [self _updateUserDefaults];
         [self _updateDataSourceWithDestinations:[self.destinations copy]];
         [self _tableViewShouldHide];
         [self _reload];
@@ -108,6 +136,12 @@
     self.dataSource.destinations = destinations;
 }
 
+- (void)_updateUserDefaults
+{
+    [self.defaults setBool:YES forKey:kFirstDownloadOfDestinationsComplete];
+    [self.defaults synchronize];
+}
+
 - (void)_reload
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -117,13 +151,13 @@
 
 - (IBAction)downloadDestinations:(id)sender
 {
+    self.downloadButton.enabled = NO;
     [self.manager downloadDestinationsType:DLTypeAllDestinations];
 }
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%s called", __FUNCTION__);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     Destination *destination = ((DestinationCell *)[tableView cellForRowAtIndexPath:indexPath]).destination;
@@ -131,9 +165,9 @@
 }
 
 #pragma mark - Info copy
-- (NSString *)_info
+- (NSString *)_infoViewTextForFirstRun:(BOOL)firstDownloadWasCompleted
 {
-    return @"This demo requires some setup to use your own CloudKit container, so please check out the README.ME before getting started.\n\nWhen ready, tap the button below. Follow the log information in your log window area and see MPC_CloudKitManager.m for detailed documentation of how it's working under the hood. \n\n1. Download the images.\n\n2. Click an image to save it to your personal saved images (which will also run a series of operations such as checking for your cloudkit, querying to see if you have the destination saved already, and saving it if you don't.";
+    return [NSString stringWithFormat:@"%@Tap destinations to add them to your private cloudkit container.%@", firstDownloadWasCompleted ? @"Downloading public destinations...\n\n" : @"", firstDownloadWasCompleted ? @"" :@"\n\nWhen you dismiss this view, your saved destinations will be pulled from the server (ie, none of these are stored locally)."];
 }
 
 @end

@@ -57,9 +57,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%s called", __FUNCTION__);
     if (self.editable && editingStyle == UITableViewCellEditingStyleDelete) {
-        NSLog(@"Should delete cell");
         
         Destination *destination = [self.dataArray objectAtIndex:indexPath.row];
         [MPC_CloudKitManager deleteMyDestination:destination];

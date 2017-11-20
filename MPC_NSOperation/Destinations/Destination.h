@@ -19,6 +19,7 @@
 @property (strong, nonatomic, readonly) UIImage *destinationImage;
 
 //Identifying properties
-@property (strong, nonatomic, readonly) CKRecordID *recordID;
+@property (strong, nonatomic, readonly) NSString *UUID;
+@property (strong, nonatomic, readonly) NSDate *recordCreatedDate;
 
 @end
