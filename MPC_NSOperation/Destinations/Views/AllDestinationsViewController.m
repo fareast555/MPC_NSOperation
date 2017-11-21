@@ -17,6 +17,7 @@
 
 //IB Outlets
 @property (weak, nonatomic) IBOutlet UIButton *downloadButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UITextView *infoView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *saveMessageLabel;
@@ -95,6 +96,9 @@
     //4. Hide the saved button and set corners
     [self.saveMessageHolderView setAlpha:0.0];
     [self.saveMessageHolderView.layer setCornerRadius:10];
+    
+    //5. Make sure spinner is off (and hidden)
+    [self.spinner stopAnimating];
     
 }
 
@@ -179,6 +183,9 @@
         //4. Check if table view should hide (due to now destinations)
         [self _tableViewShouldHide];
         
+        //5. Make sure spinner is off
+        [self.spinner stopAnimating];
+        
         //5. Rock and roll!
         [self _reload];
     }
@@ -212,6 +219,11 @@
     
     //2. Call to begin download process
     [self.manager downloadDestinationsType:DestinationTypeAllDestinations];
+    
+    //3. If this is from the download button, show the activity indicator
+    if ([sender isKindOfClass:[UIButton class]]) {
+        [self.spinner startAnimating];
+    }
 }
 
 #pragma mark - UITableViewDelegate

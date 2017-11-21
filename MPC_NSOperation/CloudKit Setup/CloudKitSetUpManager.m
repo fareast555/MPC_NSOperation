@@ -8,8 +8,9 @@
 
 #import "CloudKitSetUpManager.h"
 #import "Constants.h"
-#import "MPC_CKSaveRecordOperation.h"
 #import "MPC_CKAvailabilityCheckOperation.h"
+#import "MPC_CKQueryOperation.h"
+#import "MPC_CKSaveRecordOperation.h"
 #import "NSOperationQueue+MPC_NSOperationQueue.h"
 @import CloudKit;
 @import UIKit;
@@ -25,9 +26,27 @@
     MPC_CKAvailabilityCheckOperation *checkop = [MPC_CKAvailabilityCheckOperation MPC_Operation];
     [ops addObject:checkop];
     
-    for (NSDictionary *place in [self destinationsArray]) {
+    //Check via query if the database is already established (if records already exist)
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"recordCreatedDate < %@", [NSDate date]];
+    MPC_CKQueryOperation *query = [[MPC_CKQueryOperation alloc]initWithCKRecordType:@"MPCDestination"
+                                                                usesPrivateDatabase:NO
+                                                                          predicate:predicate
+                                                                        desiredKeys:nil
+                                                                       resultsLimit:10
+                                                          timeoutIntervalForRequest:15];
+    
+     [ops addObject:query];
+
+
+    NSArray *destinations = [self destinationsArray];
+    
+    for (NSDictionary *place in destinations) {
+        
+        //Create a new CKRecord
         CKRecordID *ID = [[CKRecordID alloc]initWithRecordName:[[NSUUID UUID]UUIDString]];
         CKRecord *record = [[CKRecord alloc]initWithRecordType:@"MPCDestination" recordID:ID];
+        
+        //Populate record fields
         record[@"destinationName"] = [place objectForKey:@"name"];
         NSData *imageData = UIImageJPEGRepresentation([place objectForKey:@"image"], 0.1);
         record[@"imageData"] = imageData;
@@ -39,14 +58,30 @@
         MPC_CKSaveRecordOperation *save = [[MPC_CKSaveRecordOperation alloc]initWithRecord:record
                                                                        usesPrivateDatabase:NO];
         
+        //If this is the first save op, add an adapter between the query and save to create checking logic.
+        //We need to test if there is data, and allow for a query error, which will happen if the database
+        //is not yet established.
+        if (place == [destinations firstObject])
+            [ops addObject:[self adapterBetweenQueryOp:query saveOp:save]];
+        
+        //Add new save operations
         [ops addObject:save];
+       
     }
-    //Add a final block
+    //Add a final logic block to process results of queue
     [ops addObject:[self _finalInitBlockFollowingSaveOp:[ops lastObject]]];
     
     //Package and start
     [queue addDependenciesAndDefaultAdapterBlocksBetweenMPC_NSOperationsArray:ops];
-    
+}
+
+- (NSBlockOperation *)adapterBetweenQueryOp:(MPC_CKQueryOperation *)queryOp saveOp:(MPC_CKSaveRecordOperation *)saveOp
+{
+    return [NSBlockOperation blockOperationWithBlock:^{
+        //If records already exist (database is already initialized), cancel process
+        if (queryOp.records)
+            [saveOp cancel];
+    }];
 }
 
 
@@ -81,8 +116,9 @@
 - (NSBlockOperation *)_finalInitBlockFollowingSaveOp: (MPC_CKSaveRecordOperation *)saveOp
 {
     return [NSBlockOperation blockOperationWithBlock:^{
-        
-        if (!saveOp.error && !saveOp.isCancelled) {
+
+        //If no error, we have either saved records, or they were already saved and save op was cancelled
+        if (!saveOp.error) {
             //Inform the delegate save ops were successful
             [self _informDelegateOfInitializationSuccess:YES error:nil];
             
@@ -90,8 +126,8 @@
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:kDatabaseInitialized];
             [[NSUserDefaults standardUserDefaults]synchronize];
             
-            //Else. Inform delegate of abject failure and disappointing their parents
-        } else
+            //Else. Inform delegate of its abject failure and disappointing its parents
+        } else if (saveOp.error)
             [self _informDelegateOfInitializationSuccess:NO error:saveOp.error];
     }];
 }

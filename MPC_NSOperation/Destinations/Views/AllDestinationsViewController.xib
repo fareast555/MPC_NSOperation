@@ -16,6 +16,7 @@
                 <outlet property="infoView" destination="QMx-2K-CQM" id="alC-Sq-Ms7"/>
                 <outlet property="saveMessageHolderView" destination="JZV-Fx-Vm1" id="Zwe-pm-n5G"/>
                 <outlet property="saveMessageLabel" destination="mqb-Gi-ici" id="msg-6n-OyK"/>
+                <outlet property="spinner" destination="mEs-pg-SF0" id="SRm-r2-1DN"/>
                 <outlet property="tableView" destination="qvQ-bh-bsI" id="Paz-Lg-c90"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -26,8 +27,8 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fb-ZZ-9UA" userLabel="Download Button">
-                    <rect key="frame" x="86.5" y="581" width="201" height="36"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <rect key="frame" x="68.5" y="567" width="237" height="40"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
                     <state key="normal" title="Download Destinations">
                         <color key="titleColor" red="0.2502441406" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
@@ -35,8 +36,11 @@
                         <action selector="downloadDestinations:" destination="-1" eventType="touchUpInside" id="64g-LJ-ODC"/>
                     </connections>
                 </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mEs-pg-SF0">
+                    <rect key="frame" x="315.5" y="577" width="20" height="20"/>
+                </activityIndicatorView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QMx-2K-CQM" userLabel="Info View">
-                    <rect key="frame" x="20" y="110" width="335" height="421"/>
+                    <rect key="frame" x="20" y="110" width="335" height="407"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -69,9 +73,11 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="qvQ-bh-bsI" secondAttribute="trailing" id="5Xy-1G-REs"/>
+                <constraint firstItem="mEs-pg-SF0" firstAttribute="leading" secondItem="8fb-ZZ-9UA" secondAttribute="trailing" constant="10" id="7jq-DE-OfM"/>
                 <constraint firstItem="qvQ-bh-bsI" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="AaA-HA-xBK"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="8fb-ZZ-9UA" secondAttribute="bottom" constant="50" id="CDc-Z5-sC7"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="8fb-ZZ-9UA" secondAttribute="bottom" constant="60" id="CDc-Z5-sC7"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="QMx-2K-CQM" secondAttribute="trailing" constant="20" id="PqN-Sy-vBi"/>
+                <constraint firstItem="8fb-ZZ-9UA" firstAttribute="centerY" secondItem="mEs-pg-SF0" secondAttribute="centerY" id="Zat-tX-kf5"/>
                 <constraint firstItem="QMx-2K-CQM" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="bYw-Ke-bea"/>
                 <constraint firstItem="QMx-2K-CQM" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="90" id="bae-vh-U2X"/>
                 <constraint firstItem="qvQ-bh-bsI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="cTV-0f-4iW"/>
