@@ -7,9 +7,9 @@
 //
 
 #import "PlaceHolderView.h"
-#import "MPC_CloudKitManager.h"
+#import "CloudKitSetUpManager.h"
 
-@interface PlaceHolderView ()<MPC_CloudKitManagerDelegate>
+@interface PlaceHolderView ()<CloudKitSetUpManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextView *infoTextView;
@@ -81,7 +81,7 @@
 - (void)_initializeCloudKit {
     
     [self _configureInitializingInProgress];
-    MPC_CloudKitManager *manager = [[MPC_CloudKitManager alloc]init];
+    CloudKitSetUpManager *manager = [[CloudKitSetUpManager alloc]init];
     manager.delegate = self;
     [manager initializeDestinations];
 }
@@ -97,7 +97,7 @@
 }
 
 #pragma mark - MPC_CloudKitManagerDelegate
-- (void)databaseInitializationDidSucceeedInMPC_CloudKitManager:(MPC_CloudKitManager *)manager
+- (void)databaseInitializationDidSucceeedInMPC_CloudKitManager:(CloudKitSetUpManager *)manager
 {
     [self _animateSpinner:NO];
     self.cloudKitSaveStatus.text = @"Success!\n";
@@ -112,7 +112,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)databaseInitializationDidFailWithError:(NSError *)error inMPC_CloudKitManager:(MPC_CloudKitManager *)manager
+- (void)databaseInitializationDidFailWithError:(NSError *)error CloudKitSetUpManager:(CloudKitSetUpManager *)manager
 {
     [self _animateSpinner:NO];
     self.cloudKitSaveStatus.text = @"Ouch! Unable to set up Cloudit.\nCheck the ReadMe.ME file.";

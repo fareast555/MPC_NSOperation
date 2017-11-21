@@ -44,7 +44,7 @@
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qvQ-bh-bsI">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
                 <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JZV-Fx-Vm1">
@@ -74,7 +74,7 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="QMx-2K-CQM" secondAttribute="trailing" constant="20" id="PqN-Sy-vBi"/>
                 <constraint firstItem="QMx-2K-CQM" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="bYw-Ke-bea"/>
                 <constraint firstItem="QMx-2K-CQM" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="90" id="bae-vh-U2X"/>
-                <constraint firstItem="qvQ-bh-bsI" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="cTV-0f-4iW"/>
+                <constraint firstItem="qvQ-bh-bsI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="cTV-0f-4iW"/>
                 <constraint firstItem="JZV-Fx-Vm1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="cWU-OT-fc2"/>
                 <constraint firstItem="8fb-ZZ-9UA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="d9k-OF-fAF"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="qvQ-bh-bsI" secondAttribute="bottom" id="wZD-oc-ViS"/>

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270307FD1FC44F170002F1DB /* 180Round.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 270307FC1FC44F170002F1DB /* 180Round.jpg */; };
+		270308031FC46FD70002F1DB /* MPC_Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 270308021FC46FD70002F1DB /* MPC_Block.m */; };
+		270308061FC480200002F1DB /* CloudKitSetUpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 270308051FC480200002F1DB /* CloudKitSetUpManager.m */; };
+		270308091FC497CA0002F1DB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 270308081FC497CA0002F1DB /* Constants.m */; };
+		2703080C1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 2703080B1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.m */; };
 		2710722B1FC2E50A000A4FBD /* info_General.png in Resources */ = {isa = PBXBuildFile; fileRef = 271072271FC2E509000A4FBD /* info_General.png */; };
 		2710722E1FC2E50A000A4FBD /* info_General2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2710722A1FC2E509000A4FBD /* info_General2.png */; };
 		272A92261FC2BC5200D0B12F /* PlaceHolderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 272A92241FC2BC5200D0B12F /* PlaceHolderView.m */; };
@@ -45,6 +50,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		270307FC1FC44F170002F1DB /* 180Round.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 180Round.jpg; path = Assets.xcassets/180Round.jpg; sourceTree = "<group>"; };
+		270308011FC46FD70002F1DB /* MPC_Block.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPC_Block.h; sourceTree = "<group>"; };
+		270308021FC46FD70002F1DB /* MPC_Block.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPC_Block.m; sourceTree = "<group>"; };
+		270308041FC480200002F1DB /* CloudKitSetUpManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudKitSetUpManager.h; sourceTree = "<group>"; };
+		270308051FC480200002F1DB /* CloudKitSetUpManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudKitSetUpManager.m; sourceTree = "<group>"; };
+		270308071FC497CA0002F1DB /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		270308081FC497CA0002F1DB /* Constants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		2703080A1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MPC_CloudKitManager+TerminalBlocks.h"; sourceTree = "<group>"; };
+		2703080B1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MPC_CloudKitManager+TerminalBlocks.m"; sourceTree = "<group>"; };
 		271072271FC2E509000A4FBD /* info_General.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_General.png; sourceTree = "<group>"; };
 		2710722A1FC2E509000A4FBD /* info_General2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_General2.png; sourceTree = "<group>"; };
 		272A92231FC2BC5200D0B12F /* PlaceHolderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceHolderView.h; sourceTree = "<group>"; };
@@ -121,6 +135,8 @@
 				27AABA961FC2F76C00BC79BA /* GettingStartedTableView.h */,
 				27AABA971FC2F76C00BC79BA /* GettingStartedTableView.m */,
 				272A92281FC2BD8300D0B12F /* CloudKitStarter.storyboard */,
+				270308041FC480200002F1DB /* CloudKitSetUpManager.h */,
+				270308051FC480200002F1DB /* CloudKitSetUpManager.m */,
 				27AABA9A1FC31C9400BC79BA /* Image Assets */,
 			);
 			path = "CloudKit Setup";
@@ -192,15 +208,22 @@
 			isa = PBXGroup;
 			children = (
 				27EBE0341FC048E1006D6873 /* MPC_NSOperation.entitlements */,
+				270308071FC497CA0002F1DB /* Constants.h */,
+				270308081FC497CA0002F1DB /* Constants.m */,
 				27EBDFFC1FC03D67006D6873 /* AppDelegate.h */,
 				27EBDFFD1FC03D67006D6873 /* AppDelegate.m */,
 				27EBE0151FC03E0A006D6873 /* MPC_CloudKitManager.h */,
 				27EBE0161FC03E0A006D6873 /* MPC_CloudKitManager.m */,
 				27EBE0301FC04228006D6873 /* MPC_NSOp-CloudKit */,
+				2703080A1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.h */,
+				2703080B1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.m */,
+				270308011FC46FD70002F1DB /* MPC_Block.h */,
+				270308021FC46FD70002F1DB /* MPC_Block.m */,
 				27AABA9B1FC31CF700BC79BA /* Destinations */,
 				27AABA991FC30F3D00BC79BA /* CloudKit Setup */,
 				27EBE0051FC03D67006D6873 /* Assets.xcassets */,
 				27EBE0021FC03D67006D6873 /* Main.storyboard */,
+				270307FC1FC44F170002F1DB /* 180Round.jpg */,
 				27EBE0071FC03D67006D6873 /* LaunchScreen.storyboard */,
 				27EBE00A1FC03D67006D6873 /* Info.plist */,
 				27EBE00B1FC03D67006D6873 /* main.m */,
@@ -211,6 +234,8 @@
 		27EBE0301FC04228006D6873 /* MPC_NSOp-CloudKit */ = {
 			isa = PBXGroup;
 			children = (
+				27EBE0241FC04206006D6873 /* MPC_NSOperation.h */,
+				27EBE0261FC04207006D6873 /* MPC_NSOperation.m */,
 				27EBE0201FC04206006D6873 /* MPC_CKAvailabilityCheckOperation.h */,
 				27EBE0281FC04207006D6873 /* MPC_CKAvailabilityCheckOperation.m */,
 				27EBE0291FC04207006D6873 /* MPC_CKFetchUserRecordIDOperation.h */,
@@ -221,8 +246,6 @@
 				27EBE0211FC04206006D6873 /* MPC_CKSaveRecordOperation.m */,
 				27AABAA51FC394ED00BC79BA /* MPC_CKDeleteRecordOperation.h */,
 				27AABAA61FC394ED00BC79BA /* MPC_CKDeleteRecordOperation.m */,
-				27EBE0241FC04206006D6873 /* MPC_NSOperation.h */,
-				27EBE0261FC04207006D6873 /* MPC_NSOperation.m */,
 				27EBE0321FC04292006D6873 /* NSOperationQueue+MPC_NSOperationQueue.h */,
 				27EBE0311FC04292006D6873 /* NSOperationQueue+MPC_NSOperationQueue.m */,
 			);
@@ -317,6 +340,7 @@
 				27EBE0561FC06818006D6873 /* angkor.jpg in Resources */,
 				27EBE0041FC03D67006D6873 /* Main.storyboard in Resources */,
 				279F89FC1FC0C1F900373451 /* DestinationCell.xib in Resources */,
+				270307FD1FC44F170002F1DB /* 180Round.jpg in Resources */,
 				27AABA951FC2F4F900BC79BA /* info_Capabilities.png in Resources */,
 				2710722E1FC2E50A000A4FBD /* info_General2.png in Resources */,
 				27AABA941FC2F4F900BC79BA /* info_Capabilities2.png in Resources */,
@@ -337,12 +361,16 @@
 				27EBE02B1FC04207006D6873 /* MPC_CKSaveRecordOperation.m in Sources */,
 				27EBE02E1FC04207006D6873 /* MPC_NSOperation.m in Sources */,
 				27EBE02C1FC04207006D6873 /* MPC_CKFetchUserRecordIDOperation.m in Sources */,
+				2703080C1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.m in Sources */,
 				27AABA981FC2F76C00BC79BA /* GettingStartedTableView.m in Sources */,
 				27EBE0171FC03E0A006D6873 /* MPC_CloudKitManager.m in Sources */,
 				27EBE00C1FC03D67006D6873 /* main.m in Sources */,
 				272A92261FC2BC5200D0B12F /* PlaceHolderView.m in Sources */,
 				27EBE01D1FC0400E006D6873 /* Destination.m in Sources */,
+				270308061FC480200002F1DB /* CloudKitSetUpManager.m in Sources */,
 				279F89FF1FC0DCC100373451 /* MyDestinationsViewController.m in Sources */,
+				270308031FC46FD70002F1DB /* MPC_Block.m in Sources */,
+				270308091FC497CA0002F1DB /* Constants.m in Sources */,
 				27AABAA71FC394ED00BC79BA /* MPC_CKDeleteRecordOperation.m in Sources */,
 				27EBDFFE1FC03D67006D6873 /* AppDelegate.m in Sources */,
 				27EBE0331FC04292006D6873 /* NSOperationQueue+MPC_NSOperationQueue.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "MyDestinationsViewController.h"
+#import "Constants.h"
 #import "MPC_CloudKitManager.h"
 #import "AllDestinationsViewController.h"
 #import "DestinationsDataSource.h"
@@ -58,22 +59,10 @@
         [self _presentPlaceholder];
     
     //Else try to download user destinations
-    else {
+    else
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
-            [self.manager downloadDestinationsType:DLTypeMyDestinations];
+            [self.manager downloadDestinationsType:DestinationTypeMyDestinations];
         });
-        
-//        dispatch_async(dispatch_get_main_queue(),^{
-//            //Create a nav controller to speed things up
-//            self.allDestinationsNavigationController = [self _createAllDestinationsNavController];
-//        });
-//
-        
-    }
-    
-    
-    
-    
 }
 
 
@@ -108,7 +97,7 @@
 {
     
     [self.manager addObserver:self
-                   forKeyPath:@"MyDestinations"
+                   forKeyPath:@"myDestinations"
                       options:NSKeyValueObservingOptionNew
                       context:nil];
 }
@@ -119,7 +108,7 @@
                        context:(void *)context
 {
     
-    if ([keyPath isEqualToString:@"MyDestinations"] &&
+    if ([keyPath isEqualToString:@"myDestinations"] &&
         [object isKindOfClass:[MPC_CloudKitManager class]]) {
 
         //Recover array

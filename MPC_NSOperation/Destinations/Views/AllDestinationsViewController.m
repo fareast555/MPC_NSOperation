@@ -7,6 +7,7 @@
 //
 
 #import "AllDestinationsViewController.h"
+#import "Constants.h"
 #import "MPC_CloudKitManager.h"
 #import "DestinationsDataSource.h"
 #import "DestinationCell.h"
@@ -210,7 +211,7 @@
     self.downloadButton.enabled = NO;
     
     //2. Call to begin download process
-    [self.manager downloadDestinationsType:DLTypeAllDestinations];
+    [self.manager downloadDestinationsType:DestinationTypeAllDestinations];
 }
 
 #pragma mark - UITableViewDelegate
