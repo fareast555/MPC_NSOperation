@@ -77,8 +77,7 @@ NSString * const kFirstDownloadOfDestinationsComplete = @"kFirstDownloadOfDestin
     NSMutableArray *opsArray = [NSMutableArray new];
     
     CKRecordID *ID = [[CKRecordID alloc]initWithRecordName:destination.UUID];
-    MPC_CKDeleteRecordOperation *op1Delete = [[MPC_CKDeleteRecordOperation alloc]initWithRecordID:ID
-                                                                              usesPrivateDatabase:YES];
+    MPC_CKDeleteRecordOperation *op1Delete = [[MPC_CKDeleteRecordOperation alloc]initWithRecordID:ID usesPrivateDatabase:YES];
     
     [opsArray addObject:op1Delete];
     
@@ -187,11 +186,6 @@ NSString * const kFirstDownloadOfDestinationsComplete = @"kFirstDownloadOfDestin
             
             //SaveOp was created with a CKRecord, so null that record
             ((MPC_CKSaveRecordOperation *)op2).record = nil;
-            
-            NSLog(@"Got a record returned in query, so will null and cancel");
-
-        } else {
-            NSLog(@"No record returned in query op (adapter block), so proceding to save");
 
         }
     }];
@@ -200,22 +194,24 @@ NSString * const kFirstDownloadOfDestinationsComplete = @"kFirstDownloadOfDestin
 - (NSBlockOperation *)_terminalBlockFollowingOp:(MPC_NSOperation *)op
                                 destinationType:(DLType)destinationType
 {
-    NSLog(@"Calling for a terminal block with destination type %@", (destinationType == DLTypeAllDestinations) ? @"ALL Ds" : @"MY Ds");
-
-    
     __weak MPC_CloudKitManager *weakSelf = self;
     return [NSBlockOperation blockOperationWithBlock:^{
         
         if (op.error && op.isCancelled) {
             //This is a failed op.
             NSLog(@"OP FAILED. Cancelled, and error %@", op.error);
+            if ([op isKindOfClass:[MPC_CKSaveRecordOperation class]]) {
+                [self _informDelegateOfSaveSuccess:NO previouslySaved:NO error:op.error];
+            }
+            
             
         }  else if (!op.error && op.isCancelled && [op isKindOfClass:[MPC_CKSaveRecordOperation class]]) {
-            NSLog(@"Save Op was cancelled. User already had record");
+            [self _informDelegateOfSaveSuccess:NO previouslySaved:YES error:nil];
             
         } else if ([op isKindOfClass:[MPC_CKSaveRecordOperation class]] && !op.isCancelled) {
             //Save op complete. Could alert user to a successful save
             NSLog(@"Save op Successful!! Hi-5!");
+             [self _informDelegateOfSaveSuccess:YES previouslySaved:NO error:nil];
             
         } else if ([op isKindOfClass:[MPC_CKQueryOperation class]] && !op.isCancelled) {
             [weakSelf _updateDestinationWithRecords:((MPC_CKQueryOperation *)op).records
@@ -224,6 +220,13 @@ NSString * const kFirstDownloadOfDestinationsComplete = @"kFirstDownloadOfDestin
         
          [weakSelf _netWorkActivityIndicatorVisible:NO];
     }];
+}
+
+- (void)_informDelegateOfSaveSuccess:(BOOL)success previouslySaved:(BOOL)previouslySaved error:(NSError *)error
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate saveDestinationSaved:success destinationPreviouslySaved:previouslySaved error:error MPC_CloudKitManager:self];
+    });
 }
 
 - (NSBlockOperation *)_deletionTerminalBlockWithDeletionOperation:(MPC_CKDeleteRecordOperation* )op
@@ -250,7 +253,7 @@ NSString * const kFirstDownloadOfDestinationsComplete = @"kFirstDownloadOfDestin
         Destination *destination = [[Destination alloc]initWithCKRecord:record];
         [destinations addObject:destination];
     }
-    NSLog(@"UPDATE with records called...destination type %@", (destinationType == DLTypeAllDestinations) ? @"ALL Ds" : @"MY Ds");
+  
         if (destinationType == DLTypeAllDestinations)
             [self _KVOUpdateAllDestinations:[destinations copy]];
         else
@@ -260,7 +263,6 @@ NSString * const kFirstDownloadOfDestinationsComplete = @"kFirstDownloadOfDestin
 
 - (void)_KVOUpdateAllDestinations:(NSArray *)destinationsArray
 {
-    NSLog(@"Going to KVO ALL destinations with %li places", destinationsArray.count);
     if (destinationsArray.count < 1) return;
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -270,7 +272,6 @@ NSString * const kFirstDownloadOfDestinationsComplete = @"kFirstDownloadOfDestin
 
 - (void)_KVOupdateMyDestinations:(NSArray *)destinationsArray
 {
-     NSLog(@"Going to KVO MY destinations with %li places", destinationsArray.count);
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self setValue:destinationsArray forKey:@"MyDestinations"];

@@ -10,7 +10,7 @@
 #import "Destination.h"
 
 @interface DestinationCell()
-@property (weak, nonatomic) IBOutlet UIImageView *destinationImageView;
+//@property (weak, nonatomic) IBOutlet UIImageView *destinationImageView;
 @property (weak, nonatomic) IBOutlet UILabel *destinationName;
 @end
 

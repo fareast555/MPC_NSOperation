@@ -14,6 +14,8 @@
             <connections>
                 <outlet property="downloadButton" destination="8fb-ZZ-9UA" id="bg2-Nn-ECy"/>
                 <outlet property="infoView" destination="QMx-2K-CQM" id="alC-Sq-Ms7"/>
+                <outlet property="saveMessageHolderView" destination="JZV-Fx-Vm1" id="Zwe-pm-n5G"/>
+                <outlet property="saveMessageLabel" destination="mqb-Gi-ici" id="msg-6n-OyK"/>
                 <outlet property="tableView" destination="qvQ-bh-bsI" id="Paz-Lg-c90"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -45,6 +47,24 @@
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
+                <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JZV-Fx-Vm1">
+                    <rect key="frame" x="97" y="134" width="180" height="70"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqb-Gi-ici">
+                            <rect key="frame" x="69" y="24" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="mqb-Gi-ici" firstAttribute="centerY" secondItem="JZV-Fx-Vm1" secondAttribute="centerY" id="8Hh-uV-1EE"/>
+                        <constraint firstAttribute="width" constant="180" id="VfU-cc-bfs"/>
+                        <constraint firstItem="mqb-Gi-ici" firstAttribute="centerX" secondItem="JZV-Fx-Vm1" secondAttribute="centerX" id="qLI-2f-I85"/>
+                        <constraint firstAttribute="height" constant="70" id="scj-qB-sFF"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -55,8 +75,10 @@
                 <constraint firstItem="QMx-2K-CQM" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="bYw-Ke-bea"/>
                 <constraint firstItem="QMx-2K-CQM" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="90" id="bae-vh-U2X"/>
                 <constraint firstItem="qvQ-bh-bsI" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="cTV-0f-4iW"/>
+                <constraint firstItem="JZV-Fx-Vm1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="cWU-OT-fc2"/>
                 <constraint firstItem="8fb-ZZ-9UA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="d9k-OF-fAF"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="qvQ-bh-bsI" secondAttribute="bottom" id="wZD-oc-ViS"/>
+                <constraint firstItem="JZV-Fx-Vm1" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="114" id="xh9-CA-UWY"/>
                 <constraint firstItem="8fb-ZZ-9UA" firstAttribute="top" secondItem="QMx-2K-CQM" secondAttribute="bottom" priority="999" constant="50" id="yp3-mH-1ff"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>

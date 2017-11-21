@@ -15,6 +15,10 @@
 @property (assign, nonatomic) BOOL editable;
 @property (strong, nonatomic) NSMutableArray *dataArray;
 @property (strong, nonatomic) MPC_CloudKitManager *manager;
+
+//Short term animation values
+@property (strong, nonatomic) NSString *destinationUUID;
+@property (assign, nonatomic) CGRect cellBounds;
 @end
 
 @implementation DestinationsDataSource
@@ -35,6 +39,12 @@
     _dataArray = [destinations mutableCopy];
 }
 
+#pragma mark - Animation
+- (void)cellWasTappedWithDestinationUUID:(NSString *)UUID bounds:(CGRect)bounds sizeShouldIncrease:(BOOL)increase
+{
+    
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -49,8 +59,10 @@
 {
     DestinationCell *cell = [tableView dequeueReusableCellWithIdentifier:[DestinationCell reuseID] forIndexPath:indexPath];
     cell.destination = self.dataArray[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
+
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {

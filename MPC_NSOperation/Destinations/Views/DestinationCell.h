@@ -14,6 +14,7 @@
 + (NSString *)nibName;
 + (NSString *)reuseID;
 
+@property (weak, nonatomic) IBOutlet UIImageView *destinationImageView;
 @property (strong, nonatomic) Destination *destination;
 
 @end

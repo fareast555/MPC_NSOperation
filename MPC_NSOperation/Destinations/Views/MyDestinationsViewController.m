@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%s called", __FUNCTION__);
+  
     self.destinations = [NSArray new];
     self.manager = [[MPC_CloudKitManager alloc]init];
     self.dataSource = [[DestinationsDataSource alloc]initWithDataArray:self.destinations
@@ -160,7 +160,7 @@
 {
     BOOL fadeIn = [animateIn boolValue];
     [UIView animateWithDuration:0.3 animations:^{
-        self.swipeRightView.alpha = fadeIn ? 1.0 : 0.0;
+        self.swipeRightView.alpha = fadeIn ? 0.85 : 0.0;
     } completion:^(BOOL finished) {
         if (fadeIn)
         [self performSelector:@selector(_animateSwipeHelpAnimateIN:) withObject:[NSNumber numberWithBool:NO] afterDelay:1.5];

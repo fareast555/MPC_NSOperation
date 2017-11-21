@@ -15,9 +15,12 @@ typedef NS_ENUM(NSInteger, DLType) {
 };
 
 @protocol MPC_CloudKitManagerDelegate
+@optional
 - (void)databaseInitializationDidSucceeedInMPC_CloudKitManager:(MPC_CloudKitManager *)manager;
 - (void)databaseInitializationDidFailWithError:(NSError *)error
                          inMPC_CloudKitManager:(MPC_CloudKitManager *)manager;
+
+- (void)saveDestinationSaved:(BOOL)saved destinationPreviouslySaved:(BOOL)previouslySaved error:(NSError *)saveError MPC_CloudKitManager:(MPC_CloudKitManager*)manager;
 @end
 
 extern NSString * const kDatabaseInitialized;
