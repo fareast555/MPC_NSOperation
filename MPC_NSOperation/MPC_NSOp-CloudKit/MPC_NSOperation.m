@@ -117,7 +117,6 @@
 #pragma mark - Error handling
 - (void)exposeErrorWithMessage:(NSString *)message
 {
-    NSLog(@"%s called", __FUNCTION__);
     if (!message)
         message = @"";
     
