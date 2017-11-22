@@ -100,38 +100,38 @@ In the app, you'll be able to download (CloudKit Query) some destination images,
 }
 ```
 
-  4. Use blocks to connect operations that require data to be passed forward. For example, if we make two subclasses, one to query and one to process some data from the query, Query_Op1 and DataOperation2, we could use a block like this...
+  4. Use blocks to connect operations that require data to be passed forward. For example, if we make two subclasses, one to query and one to process some data from the query, query_Op1 and dataOperation2, we could use a block like this...
 
 ```objectivec
     NSBlockOperation *blockOp = [NSBlockOperation blockOperationWithBlock:^{
 
          //Pass state forward
-         if (Query_Op1.isCancelled)
-             [DataOperation2 cancel];
+         if (query_Op1.isCancelled)
+             [dataOperation2 cancel];
 
         //Pass errors forward
-         DataOperation2.error = Query_Op1.error
+         dataOperation2.error = query_Op1.error
 
         //Custom object handling
-        if (Query_Op1.downloadedRecords)
+        if (query_Op1.downloadedRecords)
 
-           DataOperation.recordsToProcess = [Query_Op1.downloadedRecords copy];
+           dataOperation.recordsToProcess = [query_Op1.downloadedRecords copy];
 
         else {
 
-          [DataOperation2 cancel]; 
+          [dataOperation2 cancel]; 
 
-          DataOperation2.error = <Your custom error object here>
+          dataOperation2.error = <Your custom error object here>
         }
 
     }
 ```
      
-  4. Add a similar block after the final operation to handle the success or failure of the entire operation.
+  5. Add a similar block after the final operation to handle the success or failure of the entire operation.
 
-  5. Package all of your MPC_NSOperation subclass objects and connecting / terminal blocks into an NSArray IN THE ORDER OF EXECUTION.
+  6. Package all of your MPC_NSOperation subclass objects and connecting / terminal blocks into an NSArray IN THE ORDER OF EXECUTION.
 
-  6. Import the NSOperationQueue+MPC_NSOperation into your file, create an instance of NSOperationQueue and send the category method this array to be packaged as described at the top of this README. 
+  7. Import the NSOperationQueue+MPC_NSOperation into your file, create an instance of NSOperationQueue and send the category method this array to be packaged as described at the top of this README. 
 
 ```objectivec
    #import NSOperationQueue+MPC_NSOperation.h
