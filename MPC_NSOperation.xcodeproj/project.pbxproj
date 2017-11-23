@@ -12,6 +12,7 @@
 		270308091FC497CA0002F1DB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 270308081FC497CA0002F1DB /* Constants.m */; };
 		2703080C1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 2703080B1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.m */; };
 		270308101FC4B2770002F1DB /* round180.png in Resources */ = {isa = PBXBuildFile; fileRef = 2703080F1FC4B2770002F1DB /* round180.png */; };
+		270308131FC698F10002F1DB /* UIApplication+networkActivitySpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 270308121FC698F10002F1DB /* UIApplication+networkActivitySpinner.m */; };
 		2710722B1FC2E50A000A4FBD /* info_General.png in Resources */ = {isa = PBXBuildFile; fileRef = 271072271FC2E509000A4FBD /* info_General.png */; };
 		2710722E1FC2E50A000A4FBD /* info_General2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2710722A1FC2E509000A4FBD /* info_General2.png */; };
 		272A92261FC2BC5200D0B12F /* PlaceHolderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 272A92241FC2BC5200D0B12F /* PlaceHolderView.m */; };
@@ -59,6 +60,8 @@
 		2703080A1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MPC_CloudKitManager+TerminalBlocks.h"; sourceTree = "<group>"; };
 		2703080B1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MPC_CloudKitManager+TerminalBlocks.m"; sourceTree = "<group>"; };
 		2703080F1FC4B2770002F1DB /* round180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = round180.png; sourceTree = "<group>"; };
+		270308111FC698F10002F1DB /* UIApplication+networkActivitySpinner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+networkActivitySpinner.h"; sourceTree = "<group>"; };
+		270308121FC698F10002F1DB /* UIApplication+networkActivitySpinner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+networkActivitySpinner.m"; sourceTree = "<group>"; };
 		271072271FC2E509000A4FBD /* info_General.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_General.png; sourceTree = "<group>"; };
 		2710722A1FC2E509000A4FBD /* info_General2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_General2.png; sourceTree = "<group>"; };
 		272A92231FC2BC5200D0B12F /* PlaceHolderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceHolderView.h; sourceTree = "<group>"; };
@@ -163,11 +166,11 @@
 		27AABA9B1FC31CF700BC79BA /* Destinations */ = {
 			isa = PBXGroup;
 			children = (
-				27AABA9F1FC31D7900BC79BA /* Views */,
-				27AABA9D1FC31D5D00BC79BA /* DestinationsDataSource.h */,
-				27AABA9C1FC31D5D00BC79BA /* DestinationsDataSource.m */,
 				27EBE01B1FC0400E006D6873 /* Destination.h */,
 				27EBE01C1FC0400E006D6873 /* Destination.m */,
+				27AABA9D1FC31D5D00BC79BA /* DestinationsDataSource.h */,
+				27AABA9C1FC31D5D00BC79BA /* DestinationsDataSource.m */,
+				27AABA9F1FC31D7900BC79BA /* Views */,
 			);
 			path = Destinations;
 			sourceTree = "<group>";
@@ -212,15 +215,17 @@
 				270308081FC497CA0002F1DB /* Constants.m */,
 				27EBDFFC1FC03D67006D6873 /* AppDelegate.h */,
 				27EBDFFD1FC03D67006D6873 /* AppDelegate.m */,
+				27EBE0301FC04228006D6873 /* MPC_NSOp-CloudKit */,
 				27EBE0151FC03E0A006D6873 /* MPC_CloudKitManager.h */,
 				27EBE0161FC03E0A006D6873 /* MPC_CloudKitManager.m */,
-				27EBE0301FC04228006D6873 /* MPC_NSOp-CloudKit */,
 				2703080A1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.h */,
 				2703080B1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.m */,
 				270308011FC46FD70002F1DB /* MPC_Block.h */,
 				270308021FC46FD70002F1DB /* MPC_Block.m */,
 				27AABA9B1FC31CF700BC79BA /* Destinations */,
 				27AABA991FC30F3D00BC79BA /* CloudKit Setup */,
+				270308111FC698F10002F1DB /* UIApplication+networkActivitySpinner.h */,
+				270308121FC698F10002F1DB /* UIApplication+networkActivitySpinner.m */,
 				27EBE0051FC03D67006D6873 /* Assets.xcassets */,
 				27EBE0021FC03D67006D6873 /* Main.storyboard */,
 				2703080F1FC4B2770002F1DB /* round180.png */,
@@ -362,6 +367,7 @@
 				27EBE02E1FC04207006D6873 /* MPC_NSOperation.m in Sources */,
 				27EBE02C1FC04207006D6873 /* MPC_CKFetchUserRecordIDOperation.m in Sources */,
 				2703080C1FC4A38A0002F1DB /* MPC_CloudKitManager+TerminalBlocks.m in Sources */,
+				270308131FC698F10002F1DB /* UIApplication+networkActivitySpinner.m in Sources */,
 				27AABA981FC2F76C00BC79BA /* GettingStartedTableView.m in Sources */,
 				27EBE0171FC03E0A006D6873 /* MPC_CloudKitManager.m in Sources */,
 				27EBE00C1FC03D67006D6873 /* main.m in Sources */,

@@ -10,55 +10,76 @@
 #import "MPC_CKSaveRecordOperation.h"
 #import "MPC_CKQueryOperation.h"
 #import "MPC_CKDeleteRecordOperation.h"
+#import "UIApplication+networkActivitySpinner.h"
+#import "Destination.h"
 
 @implementation MPC_CloudKitManager (TerminalBlocks)
 
-//Final block deals with results in app-specific manner
+#pragma mark - Query Operation Terminal Block
 - (NSBlockOperation *)_terminalBlockForBatchQuery:(MPC_CKQueryOperation *)queryOp
                                   destinationType:(DestinationType)destinationType
 {
+    //1. Create a weak version of self to avoid retain cycles
     __weak MPC_CloudKitManager *weakSelf = self;
+    
+    //2. Create and return an NSBlockOperation
     return [NSBlockOperation blockOperationWithBlock:^{
         
+        //3. For the query, either an error or cancellation == failure
         if (queryOp.error || queryOp.isCancelled) {
             NSLog(@"OP FAILED. Cancelled, and error %@", queryOp.error);
             
         }  else if  (queryOp.records) {
-            //Success!
+            //4. Call to updater logic method to return results via KVO
             [weakSelf _updateDestinationWithRecords:((MPC_CKQueryOperation *)queryOp).records
                                     destinationType:destinationType];
         }
         
-        [weakSelf _netWorkActivityIndicatorVisible:NO];
+        //5. Hide Network spinner via UIApplication category
+        [UIApplication stopNetworkActivityIndicator];
+
     }];
 }
 
+#pragma mark - Save Operation Terminal Block
 - (NSBlockOperation *)_terminalBlockForSaveMyDestination:(MPC_CKSaveRecordOperation *)saveOp
 {
+    //1. Create a weak version of self to avoid retain cycles
+    __weak MPC_CloudKitManager *weakSelf = self;
+    
+     //2. Create and return an NSBlockOperation
     return [NSBlockOperation blockOperationWithBlock:^{
         
+        //3. For the save op, an error AND a cancellation == failure
         if (saveOp.error && saveOp.isCancelled) {
-            //This is a failed op.
-            NSLog(@"OP FAILED. Cancelled, and error %@", saveOp.error);
             
-            [self _informDelegateOfSaveSuccess:NO previouslySaved:NO error:saveOp.error];
+            //4. Update the delegate of failure
+            [weakSelf _informDelegateOfSaveSuccess:NO previouslySaved:NO error:saveOp.error];
             
+        //5. NO error AND a cancelled op == intentional abort due to user already having destination
         }  else if (!saveOp.error && saveOp.isCancelled) {
-            [self _informDelegateOfSaveSuccess:NO previouslySaved:YES error:nil];
             
+            //6. Update the delegate that s/he already has the destination
+            [weakSelf _informDelegateOfSaveSuccess:NO previouslySaved:YES error:nil];
+        
+        //7. A returned record AND no cancellation == Success. Yeah!
         } else if (saveOp.savedCKRecord && !saveOp.isCancelled) {
-            //Save op complete. Could alert user to a successful save
             NSLog(@"Save op Successful!! Hi-5!");
-            [self _informDelegateOfSaveSuccess:YES previouslySaved:NO error:nil];
+            
+            //8. Update the delegate of save success
+            [weakSelf _informDelegateOfSaveSuccess:YES previouslySaved:NO error:nil];
             
         }
         
-        [self _netWorkActivityIndicatorVisible:NO];
+        //9. Hide Network spinner via UIApplication category
+        [UIApplication stopNetworkActivityIndicator];
     }];
 }
 
+#pragma mark - Delete Operation Terminal Block
 - (NSBlockOperation *)_terminalBlockForDeleteMyDestination:(MPC_CKDeleteRecordOperation* )deleteOp
 {
+    
     return [NSBlockOperation blockOperationWithBlock:^{
         
         if (deleteOp.deletedCKRecordID) {
@@ -67,8 +88,74 @@
             NSLog(@"Deletion did fail with error");
         }
         
-        [self _netWorkActivityIndicatorVisible:NO];
+        //5. Hide Network spinner via UIApplication category
+        [UIApplication stopNetworkActivityIndicator];
     }];
+}
+
+#pragma mark - App updater for QUERY destinations
+//*****************
+//Receives the results of a batch query and sorts them to public properties that are KVO
+//observable based on if they are from the public or private database
+//*****************
+
+- (void)_updateDestinationWithRecords:(NSArray *)records
+                      destinationType:(DestinationType)destinationType
+{
+    //1. Create a holder array
+    NSMutableArray *destinationRecords = [NSMutableArray new];
+    
+    //2. Iterate through the downloaded records
+    for (CKRecord *record in records) {
+        
+        //3. For each record, initialize a new destination object
+        Destination *destination = [[Destination alloc]initWithCKRecord:record];
+        
+        //4. Add the new destination object to the holder array
+        [destinationRecords addObject:destination];
+    }
+    
+    //5. Update the applicable KVO observable property to inform other classed to update
+    if (destinationType == DestinationTypeAllDestinations)
+        [self _KVOUpdateAllDestinations:[destinationRecords copy]];
+    else
+        [self _KVOupdateMyDestinations:[destinationRecords copy]];
+}
+
+#pragma mark - KVO Properties
+- (void)_KVOUpdateAllDestinations:(NSArray *)destinationsArray
+{
+    if (destinationsArray.count < 1) return;
+    
+    //Get main thread before sending to a class that will update view state
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setValue:destinationsArray forKey:@"destinations"];
+    });
+}
+
+- (void)_KVOupdateMyDestinations:(NSArray *)destinationsArray
+{
+    if (destinationsArray.count < 1) return;
+    
+    //Get main thread before sending to a class that will update view state
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setValue:destinationsArray forKey:@"myDestinations"];
+    });
+}
+
+
+#pragma mark - MPC_CloudKitManager Delegate
+- (void)_informDelegateOfSaveSuccess:(BOOL)success
+                     previouslySaved:(BOOL)previouslySaved
+                               error:(NSError *)error
+{
+    //Inform the delegate of save success on main queue to sync with view-state updating classes
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate saveDestinationSaved:success
+                 destinationPreviouslySaved:previouslySaved
+                                      error:error
+                        MPC_CloudKitManager:self];
+    });
 }
 
 
