@@ -16,9 +16,6 @@
 @property (strong, nonatomic) NSMutableArray *dataArray;
 @property (strong, nonatomic) MPC_CloudKitManager *manager;
 
-//Short term animation values
-@property (strong, nonatomic) NSString *destinationUUID;
-@property (assign, nonatomic) CGRect cellBounds;
 @end
 
 @implementation DestinationsDataSource
@@ -37,12 +34,6 @@
 - (void)setDestinations:(NSArray<Destination *> *)destinations
 {
     _dataArray = [destinations mutableCopy];
-}
-
-#pragma mark - Animation
-- (void)cellWasTappedWithDestinationUUID:(NSString *)UUID bounds:(CGRect)bounds sizeShouldIncrease:(BOOL)increase
-{
-    
 }
 
 #pragma mark - UITableViewDataSource

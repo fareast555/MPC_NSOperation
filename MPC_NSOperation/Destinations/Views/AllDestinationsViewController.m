@@ -229,10 +229,8 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //1. Deselect the cell that was tapped
-  //  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //1. Get a reference to the cell
     DestinationCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-
     
     //2. Get a reference to the destination tapped via the cell tapped at the indexPath
     Destination *destination = ((DestinationCell *)[tableView cellForRowAtIndexPath:indexPath]).destination;
@@ -240,17 +238,8 @@
     //3. Call to save the destination in background
     [self.manager saveMyDestination:destination];
     
-    UIImageView *imageView = cell.destinationImageView;
-    
-    
-    [UIView animateWithDuration:0.10 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:6 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        imageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.03, 1.03);
-    } completion:^(BOOL finished2) {
-        [UIView animateWithDuration:0.15 animations:^{
-            imageView.transform = CGAffineTransformIdentity;
-        }];
-    }];
-  
+    //4. Tell the cell to animate its image to pulse once
+    [cell animate];
 }
 
 #pragma mark - MPC_CloudKitManager Delegate

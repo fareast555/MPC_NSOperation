@@ -15,8 +15,6 @@
 - (instancetype)initWithDataArray:(NSArray <Destination *>*)dataArray
                          editable:(BOOL)editable;
 
-- (void)cellWasTappedWithDestinationUUID:(NSString *)UUID bounds:(CGRect)bounds sizeShouldIncrease:(BOOL)increase;
-
 @property (strong, nonatomic) NSArray <Destination *>* destinations;
 
 @end

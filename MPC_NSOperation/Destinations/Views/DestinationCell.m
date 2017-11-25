@@ -38,5 +38,26 @@
     self.destinationName.text = destination.destinationName;
 }
 
+#pragma mark - animate self
+- (void)animate
+{
+    [UIView animateWithDuration:0.10
+                          delay:0
+         usingSpringWithDamping:0.9
+          initialSpringVelocity:6
+                        options:UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+        
+        self.destinationImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.03, 1.03);
+                         
+    } completion:^(BOOL finished2) {
+        [UIView animateWithDuration:0.15
+                         animations:^{
+            self.destinationImageView.transform = CGAffineTransformIdentity;
+        }];
+    }];
+    
+}
+
 
 @end
