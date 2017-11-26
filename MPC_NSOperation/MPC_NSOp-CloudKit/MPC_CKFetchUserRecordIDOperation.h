@@ -3,7 +3,10 @@
 //  ElectLiberalUSA
 //
 //  Created by Michael Critchley on 2017/11/14.
-//  Copyright © 2017 Michael Critchley. All rights reserved.
+/**
+ This class and the chaining structure using adapter blocks implemented in this app was build up based on the solution presented on the Apple forums by Quinn The Eskimo, here:
+ https://forums.developer.apple.com/thread/25761
+ */
 
 //*****************
 //This class returns a single CKRecordID if it identifies the unique user that exists in the "User" record type.
