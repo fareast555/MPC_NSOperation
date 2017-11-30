@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
                            predicate:(nullable NSPredicate *)predicate //Nullible if predicate is set via public property
                          desiredKeys:(nullable NSArray *)desiredKeys
                         resultsLimit:(NSUInteger)resultsLimit
-           timeoutIntervalForRequest:(NSUInteger)timeoutIntervalForRequest NS_DESIGNATED_INITIALIZER;
+           timeoutIntervalForRequest:(NSUInteger)timeoutIntervalForRequest;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

@@ -7,6 +7,7 @@
 //
 
 #import "Constants.h"
+NS_ASSUME_NONNULL_BEGIN
 
 NSString * const kDatabaseInitialized = @"kDatabaseInitializedDefaultKey";
 NSString * const kFirstDownloadOfDestinationsComplete = @"kFirstDownloadOfDestinationsCompleteKey";
@@ -14,3 +15,4 @@ NSString * const kFirstDownloadOfDestinationsComplete = @"kFirstDownloadOfDestin
 @implementation Constants
 
 @end
+NS_ASSUME_NONNULL_END

@@ -9,22 +9,27 @@
  */
 
 
-//*****************
-  //This class checks if CloudKit is available.
-  //This class exposes the CKAccountStatus and error before operation is marked as finished
+/*****************
+This class checks if CloudKit is available.
+This class exposes the CKAccountStatus and error before operation is marked as finished
 
-  //CKAccountStatus cases are:
-  //CKAccountStatusAvailable
-  //CKAccountStatusNoAccount
-  //CKAccountStatusRestricted
-  //CKAccountStatusCouldNotDetermine
-  //
-  //CKAccountStatusAvailable  -- ONLY this case results in success. All others will cancel this operation
-//*****************
+CKAccountStatus cases are:
+CKAccountStatusAvailable
+CKAccountStatusNoAccount
+CKAccountStatusRestricted
+CKAccountStatusCouldNotDetermine
+ 
+CKAccountStatusAvailable  -- ONLY this case results in success. All others will cancel this operation
+ 
+ To initialize, either use -(instanceType)init, or use the convenience factory method.
+ [MPC_CKAvailabilityCheckOperation MPC_Operation]
+*****************/
 
 
 #import <Foundation/Foundation.h>
 #import "MPC_NSOperation.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface MPC_CKAvailabilityCheckOperation : MPC_NSOperation
 
@@ -33,3 +38,5 @@
 @property (assign, atomic) CKAccountStatus status;
 
 @end
+
+NS_ASSUME_NONNULL_END

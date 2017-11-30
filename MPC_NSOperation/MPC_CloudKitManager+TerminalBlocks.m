@@ -27,7 +27,7 @@
         
         //3. For the query, either an error or cancellation == failure
         if (queryOp.error || queryOp.isCancelled) {
-            NSLog(@"OP FAILED. Cancelled, and error %@", queryOp.error);
+            NSLog(@"\n\nOP FAILED. Cancelled, and error %@", queryOp.error);
             
         }  else if  (queryOp.records) {
             //4. Call to updater logic method to return results via KVO
@@ -56,6 +56,8 @@
             //4. Update the delegate of failure
             [weakSelf _informDelegateOfSaveSuccess:NO previouslySaved:NO error:saveOp.error];
             
+            NSLog(@"\n\nMPC_CloudKitManager+TerminalBlocks: Your save op failed with error %@.", saveOp.error);
+            
         //5. NO error AND a cancelled op == intentional abort due to user already having destination
         }  else if (!saveOp.error && saveOp.isCancelled) {
             
@@ -64,7 +66,7 @@
         
         //7. A returned record AND no cancellation == Success. Yeah!
         } else if (saveOp.savedCKRecord && !saveOp.isCancelled) {
-            NSLog(@"Save op Successful!! Hi-5!");
+            NSLog(@"\n\nMPC_CloudKitManager+TerminalBlocks: Save op successful!! Hi-5!");
             
             //8. Update the delegate of save success
             [weakSelf _informDelegateOfSaveSuccess:YES previouslySaved:NO error:nil];
@@ -83,9 +85,9 @@
     return [NSBlockOperation blockOperationWithBlock:^{
         
         if (deleteOp.deletedCKRecordID) {
-            NSLog(@"Deletion was successful!");
+            NSLog(@"\n\nMPC_CloudKitManager+TerminalBlocks: Destination deletion was successful!");
         } else {
-            NSLog(@"Deletion did fail with error");
+            NSLog(@"\n\nMPC_CloudKitManager+TerminalBlocks. Destination deletion failed. %@", deleteOp.error);
         }
         
         //5. Hide Network spinner via UIApplication category
@@ -126,6 +128,7 @@
 - (void)_KVOUpdateAllDestinations:(NSArray *)destinationsArray
 {
     if (destinationsArray.count < 1) return;
+    NSLog(@"\n\nMPC_CloudKitManager+TerminalBlocks: Informing the app via KVO that the query found some publicly available destinations");
     
     //Get main thread before sending to a class that will update view state
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -136,6 +139,8 @@
 - (void)_KVOupdateMyDestinations:(NSArray *)destinationsArray
 {
     if (destinationsArray.count < 1) return;
+    
+    NSLog(@"\n\nMPC_CloudKitManager+TerminalBlocks: Informing the app via KVO that the query found the destinations you saved to your private CloudKit container");
     
     //Get main thread before sending to a class that will update view state
     dispatch_async(dispatch_get_main_queue(), ^{

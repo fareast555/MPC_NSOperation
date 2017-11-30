@@ -40,6 +40,8 @@
         self.resultsLimit = resultsLimit;
         self.timeOutIntervaleForRequest = timeoutIntervalForRequest;
     }
+    
+    NSAssert(self.recordType != nil, @"CKRecordType must not be nil!");
     return self;
 }
 
@@ -56,6 +58,9 @@
         [super completeOperation];
         return;
     }
+    
+    NSLog(@"\n\nMPC_CKQueryOperation will now query to find records.");
+
     
     //3. Create an array to keep records as they arrive
     self.receivedRecords = [[NSMutableArray alloc]init];
@@ -102,7 +107,6 @@
             //13. Else, set the public-facing array of downloaded CKRecords
         } else {
             self.records = [self.receivedRecords copy];
-            NSLog(@"No error in query. %li records found.", (long)self.receivedRecords.count);
         }
     
         //14. Call to super to mark operation as finished

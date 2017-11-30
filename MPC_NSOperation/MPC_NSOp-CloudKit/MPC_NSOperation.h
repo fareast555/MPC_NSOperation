@@ -56,6 +56,8 @@
 #import <Foundation/Foundation.h>
 @import CloudKit;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MPC_NSOperation : NSOperation
 
 + (instancetype)MPC_Operation;
@@ -70,6 +72,8 @@
 @property (atomic, assign) BOOL nowFinished;
 
 //All MPC_NSOperations should present an error on error
-@property (strong, atomic) NSError *error;
+@property (strong, atomic, nullable) NSError *error;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -17,6 +17,8 @@
     if (!operationsArray) return;
     if (operationsArray.count < 2) return;
     
+     NSLog(@"\n\nNSOperationQueue+MPC_NSOperationQueue Category is now...\n1. Adding any missing adapterblocks to connect the errors & .isCancelled status from the 1st operation, down to the next and\n2. Adding dependencies between your ops and\n3. Adding all operations and blocks to your NSOperationQueue to be executed in the correct sequence.");
+
     //1. Add default blocks to pass forward errors / isCancelled
     NSArray *arrayWithBlockOps = [NSOperationQueue _arrayWithAddedDefaultNSBlockOperationsFromOperationsArray:operationsArray];
     

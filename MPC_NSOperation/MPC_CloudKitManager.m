@@ -28,7 +28,9 @@
   //initializing all containers with meta information fields set by default to non-indexable, which would
   //break this demo. (You have to change this manually by going into your CloudKit Dashboard).
 //*****************
-   
+    
+    NSLog(@"\n\nMPC_CloudKitManager is now...\n1. Creating a query op to download destinations and \n2. Creating a clean-up block to call at the end of the operation.");
+
     //1. Create a predicate to get all records
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"recordCreatedDate < %@", [NSDate date]];
 
@@ -54,6 +56,8 @@
 
 - (void)saveMyDestination:(Destination *)destination
 {
+    NSLog(@"\n\nMPC_CloudKitManager is now...\n1. Creating a query op to see if you already saved this destination and\n2. Creating a save op, and adapter block to save the destination if necessary and\n3. Creating a clean-up block to call at the end of the operation.");
+    
     //1. Create a CKRecord from instance method on destination object
     CKRecord *myDestinationRecord = [destination CKRecordFromDestination];
     
@@ -84,6 +88,9 @@
 
 - (void)deleteMyDestination:(Destination *)destination
 {
+    
+    NSLog(@"\n\nMPC_CloudKitManager is now...\n1. Creating a deletion operation to delete the destination and\n2. Creating a clean-up block to call at the end of the operation.");
+    
     //1. Create a record ID using the UUID string property of the Destination object
     CKRecordID *ID = [[CKRecordID alloc]initWithRecordName:destination.UUID];
     
@@ -105,6 +112,7 @@
 - (void)_prepCloudKitChainOperationWithOperations:(NSArray *)operationsArray
                                   destinationType:(DestinationType)destinationType
 {
+     NSLog(@"\n\nMPC_CloudKitManager is now...\n1. Adding a MPC_CKAvailabilityOperation to the start of your operation chain to make sure you have CloudKit availability.");
     //1. Show Network spinner via UIApplication category
     [UIApplication startNetworkActivityIndicator];
     

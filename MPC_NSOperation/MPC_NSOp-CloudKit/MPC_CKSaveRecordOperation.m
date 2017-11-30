@@ -39,6 +39,8 @@
         [super completeOperation];
         return;
     }
+    
+      NSLog(@"\n\nMPC_CKSaveRecordOperation will now try to save the destination.");
 
     //3. Call to the CKContainer to save the individual record
     [self.CKDatabase saveRecord:self.record
@@ -55,7 +57,6 @@
             //6. Else, set the public-facing downloaded CKRecord property
         } else {
             self.savedCKRecord = [record copy];
-            NSLog(@"In save op, says saved record is %@", self.savedCKRecord ? @"Available." : @"NOT available.");
         }
         
         //7. Call to super to mark operation as finished

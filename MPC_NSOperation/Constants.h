@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const kDatabaseInitialized;
 extern NSString * const kFirstDownloadOfDestinationsComplete;
@@ -14,3 +15,4 @@ extern NSString * const kFirstDownloadOfDestinationsComplete;
 @interface Constants : NSObject
 
 @end
+NS_ASSUME_NONNULL_END

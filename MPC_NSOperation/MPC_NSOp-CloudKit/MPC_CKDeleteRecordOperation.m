@@ -40,6 +40,8 @@
         return;
     }
     
+     NSLog(@"\n\nMPC_CKDeleteRecordOperation will now try to delete the destination.");
+    
     //3. Call to the CKContainer to delete the individual record
     [self.CKDatabase deleteRecordWithID:self.recordID
                       completionHandler:^(CKRecordID *deletedRecordID, NSError *deletionError)
@@ -47,8 +49,6 @@
         if (deletionError) {
             //4. If error, set an error to be passed up the chain of command
             [self exposeError: deletionError];
-            NSLog(@"Deletion error %@", deletionError.userInfo);
-
             
             //5. Set this operation as cancelled to finish early
             [self cancel];

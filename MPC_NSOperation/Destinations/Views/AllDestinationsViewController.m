@@ -243,9 +243,11 @@
 }
 
 #pragma mark - MPC_CloudKitManager Delegate
-- (void)saveDestinationSaved:(BOOL)saved destinationPreviouslySaved:(BOOL)previouslySaved error:(NSError *)saveError MPC_CloudKitManager:(MPC_CloudKitManager *)manager
+- (void)saveDestinationSaved:(BOOL)saved
+  destinationPreviouslySaved:(BOOL)previouslySaved
+                       error:(NSError *)saveError
+         MPC_CloudKitManager:(MPC_CloudKitManager *)manager
 {
-    NSLog(@"%s called", __FUNCTION__);
     if (saved) {
         self.saveMessageLabel.text = @"Destination Saved! 👍🏼";
     } else if (previouslySaved) {

@@ -16,6 +16,9 @@
     if (![super initializeExecution])
         return;
     
+    NSLog(@"\n\nMPC_CKAvailabilityCheckOperation will now check to make sure your CloudKit Container is available.");
+
+    
     //2. Call to CKContainer to check account status
     [[CKContainer defaultContainer] accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus, NSError *error) {
         
