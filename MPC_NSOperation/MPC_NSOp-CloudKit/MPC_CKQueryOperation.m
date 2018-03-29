@@ -79,7 +79,8 @@
             if (@available(iOS 10.0, *)) {
                 [queryOp setTimeoutIntervalForRequest:self.timeOutIntervaleForRequest];
             }
-    
+    //Add user initiated QOS to get immediate failure if no internet connection
+    queryOp.qualityOfService = NSQualityOfServiceUserInitiated;
     
     if (self.desiredKeys)
         queryOp.desiredKeys = self.desiredKeys;

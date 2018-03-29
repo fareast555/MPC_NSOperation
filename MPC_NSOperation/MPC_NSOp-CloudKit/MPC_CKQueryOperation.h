@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return The initialized instance
  
  */
-- (instancetype)initWithCKRecordType:(nonnull NSString *)CKRecordType
+- (instancetype)initWithCKRecordType:(NSString *)CKRecordType
                  usesPrivateDatabase:(BOOL)usesPrivateDatabase  //NO = PublicDB YES = PrivateDB
                            predicate:(nullable NSPredicate *)predicate //Nullible if predicate is set via public property
                          desiredKeys:(nullable NSArray *)desiredKeys
@@ -52,10 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 //The final array of downloaded CKRecord objects
 //This is available after the operation has been marked as finished
-@property (strong, atomic) NSArray *records;
+@property (strong, atomic, nullable) NSArray *records;
 
 //To receive individual records on arrival, subscribe to this property for KVO updates
-@property (strong, atomic) CKRecord *individualRecord;
+@property (strong, atomic, nullable) CKRecord *individualRecord;
 
 
 
