@@ -59,9 +59,6 @@
         return;
     }
     
-    NSLog(@"\n\nMPC_CKQueryOperation will now query to find records.");
-
-    
     //3. Create an array to keep records as they arrive
     self.receivedRecords = [[NSMutableArray alloc]init];
     
